@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Fetch example</h1>
+        <h3>Start here:</h3>
+        <button id="fetch-button">Fetch data</button>
+    </header>
+    <main id="main-context">
+    </main>  
+    <script> 
+     const triggerbutton=document.getElementById('fetch-button')
+
+     const mainContent=document.getElementById('main-content')
+    
+     triggerbutton.addEventListener('click',()=>{
+      fetch('www.thecocktaildb.com/api/json/v1/1/random.php')
+       .then((Response)=>{
+          console.log(Response)
+    }) 
+})
+    </script>
+</body>
+</html>
