@@ -11,7 +11,7 @@
         <h3>Start here:</h3>
         <button id="fetch-button">Fetch data</button>
     </header>
-    <main id="main-context">
+    <main id="main-content">
     </main>  
     <script> 
      const triggerbutton=document.getElementById('fetch-button')
@@ -19,8 +19,8 @@
      const mainContent=document.getElementById('main-content')
     
      triggerbutton.addEventListener('click',()=>{
-      fetch('www.thecocktaildb.com/api/json/v1/1/random.php')
-       .then((Response=>response.json()))
+      fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+       .then(response=>response.json())
        .then((data)=>{
          let drinkData=data.drinks[0]
          console.log(drinkData)
