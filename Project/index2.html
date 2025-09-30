@@ -19,7 +19,7 @@
     const mainContent=document.getElementById('main-content')
 
   
-      const fetchFishData=()=>{
+         const fetchFishData =()=>{
         
         fetch('https://www.webapps.nwfsc.noaa.gov/observersalmon/api/v1/data/observer/selection.json',{
           methods:'GET', 
@@ -38,6 +38,18 @@
           `
        
         mainContent.innerHTML=fishHTML
+        })
+        }
+         const fetchFoxData=()=>{
+        fetch('https://randomfox.ca/floof')
+        .then(respond=>respond.json())
+        .then(data=>{
+          console.log(data)
+          let foxImage=data.strfoxThumb
+          let foxHTML=`
+          <img src="${foxImage}">
+          `
+        mainContent.innerHTML=foxHTML
         })
     }
     triggerbutton.addEventListener("click",fetchFishData)
