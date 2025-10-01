@@ -10,49 +10,73 @@
         <h1>Fetch example</h1>
         <h3>Start here:</h3>
         <button id="fetch-button">Fetch data</button>   
+        <button id="fetch-fox">Fetch fox</button> 
+        <button id="fetch-bird">Fetch bird</button> 
     </header>
     <main id="main-content">
     </main> 
 
     <script>
     const triggerbutton=document.getElementById('fetch-button')
+    const triggerfox=document.getElementById('fetch-fox')
+    const triggerbird=document.getElementById('fetch-bird')
     const mainContent=document.getElementById('main-content')
 
   
-         const fetchFishData =()=>{
-        
-        fetch('https://www.webapps.nwfsc.noaa.gov/observersalmon/api/v1/data/observer/selection.json',{
-          methods:'GET', 
-          headers:'Access-Control-Allow-Origin'
-        })
+         const fetchArtData =()=>{
+          const APIkey='c561844d-c5de-45ba-a49e-029d229b2de5'
+          fetch('https://api.harvardartmuseums.org&apikey='+APIkey)
     
         .then(respond=>respond.json())
         .then(data=>{
-          const fishData=data.fish[0]
+          const artData=data.art[0]
           console.log(data)
-          let fishName=data.strFish
-          let fishImage=data.strFishThumb
-          let fishHTML=`
-          <h2>${fishName}</h2>
-          <img src="${fishImage}"alt="${fishName}">
+          let artName=data.strArt
+          let artImage=data.image
+          let artHTML=`
+          <h2>${artName}</h2>
+          <img src="${artImage}"alt="${artName}">
           `
        
-        mainContent.innerHTML=fishHTML
+        mainContent.innerHTML=artHTML
         })
         }
+
          const fetchFoxData=()=>{
-        fetch('https://randomfox.ca/floof')
+         fetch('https://randomfox.ca/floof')
+
         .then(respond=>respond.json())
         .then(data=>{
           console.log(data)
-          let foxImage=data.strfoxThumb
+          let foxImage=data.image
           let foxHTML=`
           <img src="${foxImage}">
           `
         mainContent.innerHTML=foxHTML
         })
     }
-    triggerbutton.addEventListener("click",fetchFishData)
+     const fetchbirdData=()=>{
+         const APIkey='4b5575ce4be6324f3bfd1ac55b64a1a18e69b656'
+         fetch('https://xeno-canto.org',{
+        methods:"GET",
+        headers:{
+        'X-Api-Key':APIkey
+        }
+         })
+
+        .then(respond=>respond.json())
+        .then(data=>{
+          console.log(data)
+          let birdImage=data.image
+          let birdHTML=`
+          <img src="${birdImage}">
+          `
+        mainContent.innerHTML=birdHTML
+        })
+    }
+    triggerbutton.addEventListener("click",fetchArtData)
+    triggerbutton.addEventListener("click",fetchFoxData)
+    triggerbutton.addEventListener("click",fetchbirdData)
     </script>
 
 </body>
