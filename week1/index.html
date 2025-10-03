@@ -10,23 +10,60 @@
         <h1>Fetch example</h1>
         <h3>Start here:</h3>
         <button id="fetch-button">Fetch data</button>
+        <button id="fetchanimal">Fetch animal</button>
     </header>
     <main id="main-content">
     </main>  
     <script> 
      const triggerbutton=document.getElementById('fetch-button')
 
+     const animalButton=document.getElementById('fetchanimal')
+
      const mainContent=document.getElementById('main-content')
+     
+     const fetchAnimalData = () =>{
+        const APIkey="J+/8GcdzNcH+KoTHIjLefg==XUyo8TVYZBjMv6nb"
+        fetch('https://api.api-ninjas.com/v1/animals?name=cheetah',{
+          method:'GET',
+          headers: {
+              'X-Api-Key': APIkey
+          }
+
+     })
     
-     triggerbutton.addEventListener('click',()=>{
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-       .then(response=>response.json())
-       .then((data)=>{
-         let drinkData=data.drinks[0]
-         console.log(drinkData)
-         let drinkName=drinkData.strDrink
-         let drinkImage=drinkData.strDrinkThumb
-         let drinkInstructions=drinkData.strDrinkInstructions
+      .then(response=>response.json())
+      .then(data=>{
+           console.log(data)
+           let animal=data[0]
+        let animalHTML=`
+            <h2>${animal.name}</h2>
+        
+        `
+        mainContent.innerHTML += animalHTML
+          })
+        }  
+
+     const fetchCocktailData = () =>{
+        fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+          .then(response=>response.json())
+          .then((data)=>appendDrinkData(data, false))
+
+     }
+    
+    
+     const fetchNasaData = (requestDate)=>{
+        fetch('https://api.nasa.gov/planetary/apod?api_key=WPM5rPZF6xo3B1B4PBIjsX26ujgQ5f9TZZO8Y7vq&date='+requestDate)
+          .then(response=>response.json())
+          .then((data)=>appendNasaData(data))
+     }
+     
+     const appendDrinkData=(data,logData=true)=>{
+         if (logData) console.log(data)
+            let drinkData=data.drinks[0]
+         if(logData) console.log(drinkData)
+            let drinkName=drinkData.strDrink
+            let drinkImage=drinkData.strDrinkThumb
+            let drinkInstructions=drinkData.strDrinkInstructions
 
          let drinkHTML=`
         <h2>${drinkName}</h2>
@@ -34,10 +71,31 @@
         <p>${drinkInstructions}</p>
         `
         mainContent.innerHTML=drinkHTML
-       })
+        const drinkDate=new Date(drinkData.dateModified)
+        const year=drinkDate.getFullYear()
+        const month=drinkDate.getMonth()+1
+        const day=drinkDate.getDate()
+        const nasaDate=year+'-'+(month<10?'0'+month:month)+'-'+(day<10?'0'+day:day)
+        console.log(nasaDate)
 
-      
-    }) 
+        fetchNasaData(nasaDate)
+     }
+
+     const appendNasaData =(data)=>{
+        console.log(data)
+        let nasaTitle=data.title
+        let nasaAuthor=data.copyright ? data.copyright : 'Public domain'
+        let nasaImage=data.hdurl
+
+        let nasaHTML=`
+            <h2>${nasaTitle}</h2>
+            <h4>${nasaAuthor}</h4>
+            <img src="${nasaImage}"alt="${nasaTitle}">
+        `
+        mainContent.innerHTML += nasaHTML
+     }
+    triggerbutton.addEventListener("click",fetchCocktailData)
+    animalButton.addEventListener("click",fetchAnimalData)
     </script>
 </body>
 </html>
