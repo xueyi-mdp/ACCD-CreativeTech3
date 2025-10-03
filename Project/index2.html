@@ -21,7 +21,7 @@
 
   const fetchBirdData=()=>{
         const APIkey='4sd68f3ikqg4'
-        fetch('https://api.ebird.org/v2/data/obs/recent/1/random'+regionCode,{
+        fetch('https://api.ebird.org/v2/data/obs/recent/1/random',{
         methods:"GET",
         headers:{
         'X-eBirdApiToken':APIkey
@@ -127,8 +127,7 @@ const appendNasaData=(data)=>{
         mainContent.innerHTML+=nasaHTML
 }
 }
-
-    triggerbutton.addEventListener("click",fetchData)
+    triggerbutton.addEventListener("click",fetchBirdData)
     </script>
 
 </body>
