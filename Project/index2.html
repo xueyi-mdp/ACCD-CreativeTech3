@@ -53,6 +53,15 @@
 
  const fetchSoundData=(requestName)=>{
         const APIkey='4b5575ce4be6324f3bfd1ac55b64a1a18e69b656'
+
+        var myHeaders = new Headers();
+        myHeaders.append("Access-Control-Allow-Origin", "https://xueyi-mdp.github.io");
+
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        } 
         fetch('https://xeno-canto.org/api/3/recordings&query=sp:"'+requestName.toLowerCase()+'"'+'&key='+APIkey)
           .then(respond=>respond.json())
           .then(data=>appendSoundData(data))
