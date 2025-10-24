@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+    <h1>Fetch example</h1>
+    <h3>Start here:</h3>
+    <button id="fetch-button">Fetch data</button>
+
+    </header>
+    <main id="main-content">
+    </main>
+
+    <script>
+    const triggerbutton=document.getElementById('fetch-bitton')
+    const mainContent=document.getElementById('main-content')
+    
+    const FetchMealData=()=>{
+    fetch('www.themealdb.com/api/json/v1/1/random.php')   
+      .then(respond=>respond.json())
+      .then(data=>{
+         console.log(data)
+         let mealName=data.strmeal
+         let mealArea=data.strArea
+         let mealImage=data.strMealThumb
+      })
+    
+         let mealHTML=`
+        <h2>${mealName}</h2>
+        <h4>${mealArea}</h4>
+        <img src${mealImage}'alt='${mealName}>
+        `
+        mainContent.innerHTML=mealHTML
+    }
+
+    </script>
+</body>
+</html>
